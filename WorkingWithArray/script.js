@@ -80,12 +80,12 @@ const displayMovements = function (movements) {
     const html = `   
   <div class="movements__row">
   <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
-  <div class="movements__value">${movement}</div>
+  <div class="movements__value">${movement}€</div>
 </div>`
     containerMovements.insertAdjacentHTML('afterbegin', html);
   })
 }
-displayMovements(account1.movements);
+
 
 const getUserName = function (accs) {
   accs.forEach(function (acc) {
@@ -98,9 +98,65 @@ const displayBalance = function (movements) {
   const balance = movements.reduce((sum, cur) => sum + cur, 0);
   labelBalance.textContent = `${balance}€`;
 }
-displayBalance(account1.movements)
 
+
+const summaryBalance = function (acc) {
+  const incomes = acc.movements.filter(mov => mov > 0).reduce((sum, mov) => sum + mov, 0)
+  labelSumIn.textContent = `${incomes}€`
+  const outcomes = acc.movements.filter(mov => mov < 0).reduce((sum, mov) => sum + mov, 0)
+  labelSumOut.textContent = `${Math.abs(outcomes)}€`
+  const interest = acc.movements.filter(mov => mov > 0).map(mov => mov * acc.interestRate / 100).filter(inter => inter >= 1).reduce((sum, mov) => sum + mov)
+  labelSumInterest.textContent = `${interest}€`
+
+}
+
+//
+let currentAccount;
+
+//LOGIN
+btnLogin.addEventListener('click', function (e) {
+  e.preventDefault();
+  currentAccount = accounts.find(account => inputLoginUsername.value === account.username);
+  console.log(currentAccount);
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    containerApp.style.opacity = 100;
+    labelWelcome.textContent = `Hi, ${currentAccount.owner.split(' ')[0]}`
+    //Clear input fields
+    inputLoginPin.value = inputLoginUsername.value = '';
+    // inputLoginPin.blur();
+    //Display Balance
+    displayBalance(currentAccount.movements)
+    //Display History
+    displayMovements(currentAccount.movements);
+    //Display Summary
+    summaryBalance(currentAccount)
+  }
+})
 /////////////////////////////////////////////////
+
+
+
+// const person = accounts.find(account => account.owner === 'Jessica Davis');
+// console.log(person);
+
+
+// console.log(movements);
+
+// const eurToUSD = 1.1;
+// const depositTotal = movements.filter(mov => mov > 0).map(mov => mov * eurToUSD).reduce((acc, mov) => acc + mov, 0)
+// console.log(depositTotal);
+
+
+// //Maximum value
+// const maximumValue = movements.reduce((acc, mov) => {
+//   console.log('ACC: ' + acc);
+//   console.log('MOV: ' + mov);
+//   const max = acc > mov ? acc : mov;
+//   return max
+// }, movements[0])
+
+// console.log('Max' + maximumValue);
+
 
 // const balance = movements.reduce(function (acc, cur, i, arr) {
 //   return acc + cur;
