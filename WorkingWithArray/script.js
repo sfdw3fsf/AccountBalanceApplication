@@ -183,16 +183,18 @@ btnSort.addEventListener('click', function () {
 
 /////////////////////////////////////////////////
 
-const convertTitle = function (title) {
-  const capatilized = str => str[0].toUpperCase() + str.slice(1);
-  const exception = ['a', 'the', 'of', 'other'];
-  const titleConverted = title.toLowerCase().split(' ').map(word => exception.includes(word) ? word : capatilized(word)).join(' ');
-  return capatilized(titleConverted);
-}
-console.log(convertTitle('This is a tittle'));
-console.log(convertTitle('a is an tittle'));
-console.log(convertTitle('HI every the sunny'));
-console.log(convertTitle('There are some of person'));
+
+
+// const convertTitle = function (title) {
+//   const capatilized = str => str[0].toUpperCase() + str.slice(1);
+//   const exception = ['a', 'the', 'of', 'other'];
+//   const titleConverted = title.toLowerCase().split(' ').map(word => exception.includes(word) ? word : capatilized(word)).join(' ');
+//   return capatilized(titleConverted);
+// }
+// console.log(convertTitle('This is a tittle'));
+// console.log(convertTitle('a is an tittle'));
+// console.log(convertTitle('HI every the sunny'));
+// console.log(convertTitle('There are some of person'));
 
 
 
