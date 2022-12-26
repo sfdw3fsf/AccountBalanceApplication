@@ -183,20 +183,44 @@ btnSort.addEventListener('click', function () {
 
 /////////////////////////////////////////////////
 
-const deposit = accounts.flatMap(acc => acc.movements).filter(mov => mov > 0).reduce((acc, cur) => acc + cur, 0);
-console.log(deposit);
+const convertTitle = function (title) {
+  const capatilized = str => str[0].toUpperCase() + str.slice(1);
+  const exception = ['a', 'the', 'of', 'other'];
+  const titleConverted = title.toLowerCase().split(' ').map(word => exception.includes(word) ? word : capatilized(word)).join(' ');
+  return capatilized(titleConverted);
+}
+console.log(convertTitle('This is a tittle'));
+console.log(convertTitle('a is an tittle'));
+console.log(convertTitle('HI every the sunny'));
+console.log(convertTitle('There are some of person'));
 
-// const numberAbove1000 = accounts.flatMap(acc => acc.movements).filter(mov => mov >= 1000).reduce((count, cur) => count + 1, 0)
-const numberAbove1000 = accounts.flatMap(acc => acc.movements).reduce((count, cur) => cur >= 1000 ? ++count : count, 0)
 
-console.log(numberAbove1000);
 
-//FILL                                         NOTE
+// const { deposit, withdrawal } = accounts.flatMap(acc => acc.movements).reduce(
+//   (acc, cur) => {
+//     acc[cur > 0 ? 'deposit' : 'withdrawal'] += cur;
+//     return acc;
+//   },
+//   { deposit: 0, withdrawal: 0 }
+// )
+// console.log(deposit, withdrawal);
+
+
+
+// const deposit = accounts.flatMap(acc => acc.movements).filter(mov => mov > 0).reduce((acc, cur) => acc + cur, 0);
+// console.log(deposit);
+
+// // const numberAbove1000 = accounts.flatMap(acc => acc.movements).filter(mov => mov >= 1000).reduce((count, cur) => count + 1, 0)
+// const numberAbove1000 = accounts.flatMap(acc => acc.movements).reduce((count, cur) => cur >= 1000 ? ++count : count, 0)
+
+// console.log(numberAbove1000);
+
+//FILL
 // const arr = new Array(7);
 // arr.fill(1, 2, 5);
 // arr.fill(45, 0, 2)
 // console.log(arr);
-// //FROM                                         NOTE
+// //FROM
 // const arr2 = Array.from({ length: 7 }, () => 2);
 // console.log(arr2);
 
@@ -208,12 +232,12 @@ console.log(numberAbove1000);
 // })
 
 
-//SORT                                         NOTE
+//SORT
 // movements.sort((a, b) => a - b)
 // if (a > b) return 1;
 // if (a < b) return -1;)
 
-//FLAT FLATMAP                                 NOTE
+//FLAT FLATMAP
 // const movementsOverall = accounts.map(acc => acc.movements).flat().reduce((acc, cur) => acc + cur, 0);
 // console.log(movementsOverall);
 
@@ -226,7 +250,7 @@ console.log(numberAbove1000);
 
 // console.log(accounts);
 
-//FIND                                         NOTE
+//FIND
 // const person = accounts.find(account => account.owner === 'Jessica Davis');
 // console.log(person);
 
@@ -248,19 +272,19 @@ console.log(numberAbove1000);
 
 // console.log('Max' + maximumValue);
 
-//REDUCE                                       NOTE
+//REDUCE
 // const balance = movements.reduce(function (acc, cur, i, arr) {
 //   return acc + cur;
 // }, 0)
 // console.log(balance);
 
-//FILTER                                       NOTE
+//FILTER
 // const deposit = movements.filter(mov => mov > 0)
 // console.log(deposit);
 // const withdrawal = movements.filter(mov => mov < 0)
 // console.log(withdrawal);
 
-//MAP                                          NOTE
+//MAP
 // const movementUSD = movements.map(function (movement) {
 //   return movement * 1.1;
 // })
